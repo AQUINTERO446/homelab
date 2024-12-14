@@ -1,0 +1,18 @@
+services:
+  audiobookshelf:
+    image: ghcr.io/advplyr/audiobookshelf
+    container_name: audiobookshelf
+    network_mode: bridge
+    deploy:
+      resources:
+        limits:
+          pids: 2048
+    environment:
+      - TZ=America/Bogota
+      - HOST_CONTAINERNAME=audiobookshelf
+    ports:
+      - 13378:80/tcp
+    volumes:
+      - /external/media/audiobooks/:/audiobooks:rw
+      - /data/audiobookshelf:/config:rw
+      - /data/audiobookshelf/metadata/:/metadata:rw

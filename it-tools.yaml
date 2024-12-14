@@ -1,0 +1,14 @@
+services:
+  it-tools:
+    image: corentinth/it-tools
+    container_name: it-tools
+    network_mode: bridge
+    deploy:
+      resources:
+        limits:
+          pids: 2048
+    environment:
+      - TZ=America/Bogota
+      - HOST_CONTAINERNAME=it-tools
+    ports:
+      - 88:80/tcp

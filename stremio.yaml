@@ -1,0 +1,25 @@
+services:
+  stremio-docker:
+    image: tsaridas/stremio-docker:latest
+    restart: unless-stopped
+    networks:
+      br2:
+        ipv4_address: 10.10.22.2
+    container_name: stremio
+    deploy:
+      resources:
+        limits:
+          pids: 2048
+    environment:
+      - TZ=America/Bogota
+      - HOST_CONTAINERNAME=stremio
+      - NO_CORS=1
+    ports:
+      - 8080:8080/tcp
+      - 11470:11470/tcp
+    volumes:
+      - /data/stremio/:/root/.stremio-server:rw
+networks:
+  br2:
+    external: true
+    name: br2

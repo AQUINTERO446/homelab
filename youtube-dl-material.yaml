@@ -1,0 +1,35 @@
+services:
+  youtubedl-material:
+    image: tzahi12345/youtubedl-material
+    container_name: youtube-dl-material
+    deploy:
+      resources:
+        limits:
+          pids: 2048
+    environment:
+      - TZ=America/Bogota
+      - HOST_CONTAINERNAME=youtube-dl-material
+      - ytdl_title_top=YoutubeDL Material
+      - ytdl_allow_advanced_download=true
+    ports:
+      - 17442:17442/tcp
+    volumes:
+      - /external/media/youtube/audio/:/app/audio/:rw
+      - /external/media/youtube/video/:/app/video/:rw
+      - /external/media/youtube/subscriptions/:/app/subscriptions/:rw
+      - /data/youtubedl-material:/app/appdata:rw
+  mongo:
+    image: mongo
+    container_name: MongoDB
+    network_mode: bridge
+    deploy:
+      resources:
+        limits:
+          pids: 2048
+    environment:
+      - TZ=America/Bogota
+      - HOST_CONTAINERNAME=MongoDB
+    ports:
+      - 27017:27017/tcp
+    volumes:
+      - /external/db/ytmongodb/:/data/db:rw

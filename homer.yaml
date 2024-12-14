@@ -1,0 +1,18 @@
+services:
+  homer:
+    image: b4bz/homer:latest
+    container_name: homer
+    deploy:
+      resources:
+        limits:
+          pids: 2048
+    environment:
+      - TZ=America/Bogota
+      - HOST_OS=Unraid
+      - HOST_HOSTNAME=mambru.tower
+      - HOST_CONTAINERNAME=homer
+    ports:
+      - 8081:8080/tcp
+    volumes:
+      - /mnt/user/appdata/homer/assets/:/www/assets:rw
+    user: 99:100

@@ -1,0 +1,23 @@
+services:
+  s-pdf:
+    image: frooodle/s-pdf:latest
+    container_name: StirlingPDF
+    deploy:
+      resources:
+        limits:
+          pids: 2048
+    environment:
+      - TZ=America/Bogota
+      - HOST_OS=Unraid
+      - SYSTEM_GOOGLEVISIBILITY=false
+      - SYSTEM_DEFAULT_LOCALE=en_GB
+      - DOCKER_ENABLE_SECURITY=false
+      - METRICS_ENABLED=true
+      - SYSTEM_CONNECTIONTIMEOUTMINUTES=3000000
+      - SYSTEM_ROOT_URI_PATH=/
+    ports:
+      - 8084:8080/tcp
+    volumes:
+      - /data/Stirling-PDF/OCR:/usr/share/tesseract-ocr/5/tessdata:rw
+      - /data/Stirling-PDF/configs/:/configs:rw
+      - /data/Stirling-PDF/customFiles:/customFiles:rw

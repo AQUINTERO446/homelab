@@ -1,0 +1,59 @@
+[
+  {
+    "Name": "proxynet",
+    "Id": "84bfd1f383728f8ea1e05b97e208e6855bc9ec832dd572f6d1d57dd0d2863f6f",
+    "Created": "2024-09-27T18:26:13.923064344-05:00",
+    "Scope": "local",
+    "Driver": "bridge",
+    "EnableIPv6": false,
+    "IPAM": {
+      "Driver": "default",
+      "Options": {},
+      "Config": [
+        {
+          "Subnet": "172.19.0.0/16",
+          "Gateway": "172.19.0.1"
+        }
+      ]
+    },
+    "Internal": false,
+    "Attachable": false,
+    "Ingress": false,
+    "ConfigFrom": {
+      "Network": ""
+    },
+    "ConfigOnly": false,
+    "Containers": {
+      "483ce6e18d259a4852919315fd4072da90d12211c0d94ad9e041119971e0bc87": {
+        "Name": "navidrome",
+        "EndpointID": "945f374c570303115cd530ec43288e1f19f2a7af7488198fe7347e5993bbbf28",
+        "MacAddress": "02:42:ac:13:00:04",
+        "IPv4Address": "172.19.0.4/16",
+        "IPv6Address": ""
+      },
+      "bec1a79a689930d91c9298752696985e08c8078e056b12c82dc53e6165734178": {
+        "Name": "nextcloud",
+        "EndpointID": "b030187accdfb75df491908468b154dec8686dae58f9d5f0b60280572f06d829",
+        "MacAddress": "02:42:ac:13:00:05",
+        "IPv4Address": "172.19.0.5/16",
+        "IPv6Address": ""
+      },
+      "d00964bb56b36699015a27dfc694fb60875eeb7d3b20bdfc701b8ef82f635a0e": {
+        "Name": "jellyfin",
+        "EndpointID": "fe22389346b0ad9baae5b2a279413d8722f1d6eee0014870aa0cc6276dbd5e2f",
+        "MacAddress": "02:42:ac:13:00:03",
+        "IPv4Address": "172.19.0.3/16",
+        "IPv6Address": ""
+      },
+      "d6e5cd0a08bfbd4200e998e5a718317d05a8e4d20fb39bdd939ee82f658e4fee": {
+        "Name": "immich",
+        "EndpointID": "3100b2a4da3cb1ffab788080046f6ef1b795569bb49deb8aa9f467b74a3d9560",
+        "MacAddress": "02:42:ac:13:00:02",
+        "IPv4Address": "172.19.0.2/16",
+        "IPv6Address": ""
+      }
+    },
+    "Options": {},
+    "Labels": {}
+  }
+]

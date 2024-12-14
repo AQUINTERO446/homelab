@@ -1,0 +1,32 @@
+services:
+  nextcloud:
+    image: lscr.io/linuxserver/nextcloud:30.0.0
+    container_name: nextcloud
+    networks:
+      - proxynet
+    deploy:
+      resources:
+        limits:
+          pids: 2048
+    environment:
+      - TZ=America/Bogota
+      - HOST_OS=Unraid
+      - HOST_HOSTNAME=mambru.tower
+      - HOST_CONTAINERNAME=nextcloud
+      - DOCKER_MODS=ghcr.io/tailscale-dev/docker-mod:main
+      - TAILSCALE_STATE_DIR=/var/lib/tailscale
+      - TAILSCALE_HOSTNAME=NextcloudMambru
+      - TAILSCALE_AUTHKEY=tskey-auth-kMyoZe2mHB21CNTRL-KNP2Feq6UKJB9eRra5nGLJEm4HZp9kef
+      - PUID=99
+      - PGID=100
+      - UMASK=022
+    ports:
+      - 8443:443/tcp
+    volumes:
+      - /external/media/nextcloud/:/data:rw
+      - /data/nextcloud/tailscale:/var/lib/tailscale:rw
+      - /data/nextcloud:/config:rw
+networks:
+  proxynet:
+    external: true
+    name: proxynet

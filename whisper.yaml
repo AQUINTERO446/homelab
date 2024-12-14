@@ -1,0 +1,18 @@
+services:
+  openai-whisper-asr-webservice:
+    image: onerahmet/openai-whisper-asr-webservice
+    container_name: whisper-asr-webservice
+    deploy:
+      resources:
+        limits:
+          pids: 2048
+    environment:
+      - TZ=America/Bogota
+      - HOST_CONTAINERNAME=whisper-asr-webservice
+      - ASR_MODEL=large
+      - ASR_ENGINE=faster_whisper
+    ports:
+      - 9000:9000/tcp
+    volumes:
+      - /data/whisper/.cache:/root/.cache/whisper:rw
+      - /data/whisper/data:/data/whisper:rw

@@ -1,0 +1,65 @@
+services:
+  immich:
+    image: ghcr.io/imagegenius/immich
+    container_name: immich
+    deploy:
+      resources:
+        limits:
+          pids: 2048
+    environment:
+      - TZ=America/Bogota
+      - DB_HOSTNAME=PostgreSQL_Immich
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE_NAME=immich
+      - REDIS_HOSTNAME=Redis
+      - DB_PORT=5433
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=
+      - MACHINE_LEARNING_GPU_ACCELERATION=
+      - MACHINE_LEARNING_WORKERS=2
+      - MACHINE_LEARNING_WORKER_TIMEOUT=120
+      - DOCKER_MODS=ghcr.io/tailscale-dev/docker-mod:main
+      - TAILSCALE_STATE_DIR=/var/lib/tailscale
+      - TAILSCALE_HOSTNAME=ImmichMambru
+      - TAILSCALE_AUTHKEY=tskey-auth-kMMv3Tmwwz11CNTRL-7MCHV7qWmQCFaj1FLWJ3QCpUhLaJhVc6
+      - PUID=99
+      - PGID=100
+      - UMASK=022
+    ports:
+      - 8086:8080/tcp
+    volumes:
+      - /external/media/photos/:/photos:rw
+      - /external/media/Takeout/Google Photos/:/import:ro
+      - /data/immich/tailscale:/var/lib/tailscale:rw
+      - /data/immich:/config:rw
+  pgvecto-rs:
+    image: tensorchord/pgvecto-rs:pg16-v0.2.0
+    container_name: PostgreSQL_Immich
+    deploy:
+      resources:
+        limits:
+          pids: 2048
+    environment:
+      - TZ=America/Bogota
+      - HOST_CONTAINERNAME=PostgreSQL_Immich
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=immich
+    ports:
+      - 5433:5432/tcp
+    volumes:
+      - /external/db/PostgreSQL_Immich:/var/lib/postgresql/data:rw
+  redis:
+    image: redis
+    container_name: Redis
+    network_mode: bridge
+    deploy:
+      resources:
+        limits:
+          pids: 2048
+    environment:
+      - TZ=America/Bogota
+      - HOST_CONTAINERNAME=Redis
+    ports:
+      - 6379:6379/tcp

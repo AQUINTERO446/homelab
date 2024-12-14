@@ -1,0 +1,23 @@
+services:
+  kavita:
+    image: lscr.io/linuxserver/kavita
+    container_name: kavita
+    network_mode: bridge
+    deploy:
+      resources:
+        limits:
+          pids: 2048
+    environment:
+      - TZ=America/Bogota
+      - HOST_OS=Unraid
+      - HOST_HOSTNAME=mambru.tower
+      - HOST_CONTAINERNAME=kavita
+      - TZ=America/Bogota
+      - PUID=99
+      - PGID=100
+      - UMASK=022
+    ports:
+      - 5818:5000/tcp
+    volumes:
+      - /external/media/books/:/data:rw
+      - /data/kavita_data/:/config:rw

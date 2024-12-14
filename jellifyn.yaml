@@ -1,0 +1,25 @@
+services:
+  arch-jellyfin:
+    image: binhex/arch-jellyfin
+    container_name: jellyfin
+    networks:
+      - proxynet
+    deploy:
+      resources:
+        limits:
+          pids: 2048
+    environment:
+      - TZ=America/Bogota
+      - HOST_CONTAINERNAME=jellyfin
+      - UMASK=000
+      - PUID=99
+      - PGID=100
+    ports:
+      - 8096:8096/tcp
+    volumes:
+      - /external/media/:/media:rw
+      - /data/binhex-jellyfin:/config:rw
+networks:
+  proxynet:
+    external: true
+    name: proxynet

@@ -1,0 +1,16 @@
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    deploy:
+      resources:
+        limits:
+          pids: 2048
+    environment:
+      - TZ=America/Bogota
+      - HOST_CONTAINERNAME=ollama
+      - OLLAMA_ORIGINS=*
+    ports:
+      - 11434:11434/tcp
+    volumes:
+      - /data/ollama/:/root/.ollama:rw
